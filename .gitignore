@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+*.class
+venv/
+mi_entorno/
+.env
+.vscode/
+.idea/
+*.log
