@@ -1,9 +1,29 @@
+# Byte-compiled / cache de Python
 __pycache__/
 *.py[cod]
-*.class
+*$py.class
+
+# Entornos virtuales
+.venv/
 venv/
-mi_entorno/
-.env
+ENV/
+env/
+
+# Directorio de ejercicios y prácticas sueltas
+exercises/
+
+# Datos locales y del pipeline (evita subir datos masivos o volcados)
+data/*
+!data/**/.gitkeep
+
+# Ficheros temporales y de control generados por Spark / Hadoop
+*.parquet
+*.crc
+_SUCCESS
+.checkpoint/
+
+# Configuración de entornos y editores
 .vscode/
 .idea/
+.DS_Store
 *.log
