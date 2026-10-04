@@ -72,8 +72,8 @@ etl_commerce_pro/
 │   │   └── main.py                    # Orquestador del flujo transaccional
 │   │
 │   └── streetwear_etl/                # Pipeline 2: Catálogo (PySpark & Medallion)
-│       ├── 01_extract.py              # Ingesta Bronze
-│       ├── 02_transform.py            # Limpieza y esquema Silver
+│       ├── 01_streetwear_extract.py              # Ingesta Bronze
+│       ├── 02_streetwear_transform.py            # Limpieza y esquema Silver
 │       ├── 03_streetwear_analytics.py # Métricas de negocio y carga Gold
 │       └── 04_main_streetwear.py      # Orquestador distribuido end-to-end
 │

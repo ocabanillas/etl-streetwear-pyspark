@@ -35,8 +35,8 @@ if __name__ == "__main__":
     print("=" * 60)
 
     pipeline_steps = [
-        ("Capa Bronze (Extracción)", "01_extract.py"),
-        ("Capa Silver (Transformación)", "02_transform.py"),
+        ("Capa Bronze (Extracción)", "01_streetwear_extract.py"),
+        ("Capa Silver (Transformación)", "02_streetwear_transform.py"),
         ("Capa Gold (Analítica y Load)", "03_streetwear_analytics.py")
     ]
 
