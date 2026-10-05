@@ -1,10 +1,11 @@
+from pathlib import Path
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.window import Window
 
 spark = SparkSession.builder.appName('streetwearanalytics').getOrCreate()
 
-path = 'data/output/products_silver'
+path = 'data/output/silver'
 
 df = (
     spark.read
@@ -45,19 +46,22 @@ df_ranked_products = (
     .orderBy('category_name', 'price_rank')   
 )
 
+
 print("\n=== TOP 3 PRODUCTOS MÁS CAROS POR CATEGORÍA ===")
 df_ranked_products.show(truncate=False)
 
 # ==========================================
-# 4. CARGA / PERSISTENCIA (CAPA GOLD)
+# 3. CARGA / PERSISTENCIA (CAPA GOLD)
 # ==========================================
+gold_base_path = 'data/output/gold'
+Path(gold_base_path).mkdir(parents=True, exist_ok=True)
 
 # 1. Métricas por categoría
 (
     df_category_metrics
     .write
     .mode("overwrite")
-    .parquet("data/output/gold/category_metrics")
+    .parquet(f"{gold_base_path}/category_metrics")
 )
 
 # 2. Métricas por rango de precio
@@ -65,7 +69,7 @@ df_ranked_products.show(truncate=False)
     df_tier_metrics
     .write
     .mode("overwrite")
-    .parquet("data/output/gold/tier_metrics")
+    .parquet(f"{gold_base_path}/tier_metrics")
 )
 
 # 3. Ranking de productos más caros
@@ -73,13 +77,12 @@ df_ranked_products.show(truncate=False)
     df_ranked_products
     .write
     .mode("overwrite")
-    .parquet("data/output/gold/ranked_products")
+    .parquet(f"{gold_base_path}/ranked_products")
 )
 
-print("\n[OK] Capa Gold persistida correctamente en data/output/gold/")
+print(f"\n[OK] Capa Gold persistida correctamente en {gold_base_path}/")
 
 # ==========================================
-# 5. CIERRE DE SESIÓN
+# 4. CIERRE DE SESIÓN
 # ==========================================
 spark.stop()
-

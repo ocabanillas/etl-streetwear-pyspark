@@ -1,29 +1,16 @@
-# Byte-compiled / cache de Python
+# Entornos virtuales y Python
 __pycache__/
 *.py[cod]
-*$py.class
-
-# Entornos virtuales
 .venv/
 venv/
-ENV/
-env/
 
-# Directorio de ejercicios y prácticas sueltas
-exercises/
+# Ignorar todos los datos dentro de data/
+data/raw/*
+data/output/silver/*
+data/output/gold/*
 
-# Datos locales y del pipeline (evita subir datos masivos o volcados)
-data/*
+# Mantener las carpetas vacías en Git
 !data/**/.gitkeep
 
-# Ficheros temporales y de control generados por Spark / Hadoop
-*.parquet
-*.crc
-_SUCCESS
-.checkpoint/
-
-# Configuración de entornos y editores
-.vscode/
-.idea/
+# Docker y temporales
 .DS_Store
-*.log

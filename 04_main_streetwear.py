@@ -3,14 +3,17 @@ import sys
 import time
 from pathlib import Path
 
-# Directorio donde reside este script: .../pipelines/streetwear_etl
-SCRIPTS_DIR = Path(__file__).resolve().parent
-
-# Raíz del proyecto: sube dos niveles (streetwear_etl -> pipelines -> etl_commerce_pro)
-PROJECT_ROOT = SCRIPTS_DIR.parent.parent
+# Directorio raíz del proyecto (donde residen los scripts y la carpeta data/)
+PROJECT_ROOT = Path(__file__).resolve().parent
+SCRIPTS_DIR = PROJECT_ROOT
 
 def run_step(step_name: str, script_name: str) -> None:
     script_path = SCRIPTS_DIR / script_name
+    
+    if not script_path.exists():
+        print(f"\n[ERROR] No se encontró el script requerido: {script_path}")
+        sys.exit(1)
+        
     print(f"\n---> Iniciando paso: {step_name} ({script_path.name})")
     start_time = time.time()
     
@@ -30,10 +33,11 @@ if __name__ == "__main__":
     total_start = time.time()
     print("=" * 60)
     print("INICIANDO PIPELINE: STREETWEAR_ETL")
-    print(f"Ruta scripts : {SCRIPTS_DIR}")
     print(f"Raíz proyecto: {PROJECT_ROOT}")
     print("=" * 60)
 
+    # Asegúramos que coincidan los nombres y rutas
+    
     pipeline_steps = [
         ("Capa Bronze (Extracción)", "01_streetwear_extract.py"),
         ("Capa Silver (Transformación)", "02_streetwear_transform.py"),
